@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym Schedule Planner</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-light: #4895ef;
+            --secondary: #3f37c9;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
+            --success: #4cc9f0;
+            --warning: #f72585;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            color: var(--dark);
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(90deg, var(--primary), var(--success));
+        }
+        
+        h1 {
+            text-align: center;
+            color: var(--dark);
+            margin-bottom: 30px;
+            font-weight: 700;
+            font-size: 2.5rem;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--success));
+            border-radius: 2px;
+        }
+        
+        .control-panel {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin-bottom: 40px;
+            padding: 30px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--light-gray);
+        }
+        
+        .control-group {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 12px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 1rem;
+        }
+        
+        .select-wrapper {
+            position: relative;
+        }
+        
+        .select-wrapper::after {
+            content: '\f078';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            color: var(--gray);
+            pointer-events: none;
+        }
+        
+        select {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid var(--light-gray);
+            border-radius: 10px;
+            font-size: 1rem;
+            background-color: white;
+            appearance: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--dark);
+            font-weight: 500;
+        }
+        
+        select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+        
+        button {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .schedule {
+            display: none;
+            margin-top: 40px;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .schedule-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light-gray);
+        }
+        
+        .schedule-title {
+            font-size: 1.8rem;
+            color: var(--dark);
+            font-weight: 700;
+        }
+        
+        .schedule-type {
+            background: linear-gradient(135deg, var(--success) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .days-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .day {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid var(--light-gray);
+        }
+        
+        .day:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .day-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 20px;
+            font-weight: 600;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .day-header i {
+            font-size: 1.4rem;
+        }
+        
+        .exercises {
+            padding: 20px;
+        }
+        
+        .exercise {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed var(--light-gray);
+            animation: slideIn 0.4s ease-out;
+            animation-fill-mode: both;
+        }
+        
+        .exercise:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .exercise-name {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .exercise-name i {
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+        
+        .exercise-details {
+            color: var(--gray);
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .exercise-sets, .exercise-reps {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .exercise-sets span, .exercise-reps span {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: var(--gray);
+        }
+        
+        .empty-state i {
+            font-size: 3rem;
+            color: var(--light-gray);
+            margin-bottom: 20px;
+        }
+        
+        .empty-state h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+            }
+            
+            .control-panel {
+                flex-direction: column;
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .days-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Tooltip styles */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.8rem;
+            font-weight: normal;
+        }
+        
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Gym Schedule Planner</h1>
+        
+        <div class="control-panel">
+            <div class="control-group">
+                <label for="workout-type">Workout Split</label>
+                <div class="select-wrapper">
+                    <select id="workout-type">
+                        <option value="single">Single Muscle Group</option>
+                        <option value="double">Double Muscle Group</option>
+                        <option value="ppl">Push-Pull-Legs (PPL)</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <label for="days-per-week">Days Per Week</label>
+                <div class="select-wrapper">
+                    <select id="days-per-week">
+                        <option value="3">3 Days</option>
+                        <option value="4">4 Days</option>
+                        <option value="5">5 Days</option>
+                        <option value="6">6 Days</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <label for="experience-level">Experience Level</label>
+                <div class="select-wrapper">
+                    <select id="experience-level">
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="advanced">Advanced</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <button id="generate-btn">
+            <i class="fas fa-dumbbell"></i>
+            Generate My Schedule
+        </button>
+        
+        <div id="schedule" class="schedule">
+            <div class="empty-state">
+                <i class="fas fa-calendar-plus"></i>
+                <h3>No Schedule Generated Yet</h3>
+                <p>Select your preferences and click the button above to create your personalized workout plan</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const generateBtn = document.getElementById('generate-btn');
+            const scheduleDiv = document.getElementById('schedule');
+            
+            generateBtn.addEventListener('click', generateSchedule);
+            
+            function generateSchedule() {
+                const workoutType = document.getElementById('workout-type').value;
+                const daysPerWeek = parseInt(document.getElementById('days-per-week').value);
+                const experienceLevel = document.getElementById('experience-level').value;
+                
+                // Show loading state
+                scheduleDiv.innerHTML = `
+                    <div style="text-align: center; padding: 50px 20px;">
+                        <i class="fas fa-spinner fa-spin" style="font-size: 3rem; color: var(--primary);"></i>
+                        <h3 style="margin-top: 20px; color: var(--dark);">Creating your perfect schedule...</h3>
+                    </div>
+                `;
+                scheduleDiv.style.display = 'block';
+                
+                // Simulate loading for better UX
+                setTimeout(() => {
+                    let schedule = [];
+                    
+                    switch(workoutType) {
+                        case 'single':
+                            schedule = generateSingleMuscleSchedule(daysPerWeek, experienceLevel);
+                            break;
+                        case 'double':
+                            schedule = generateDoubleMuscleSchedule(daysPerWeek, experienceLevel);
+                            break;
+                        case 'ppl':
+                            schedule = generatePPLSchedule(daysPerWeek, experienceLevel);
+                            break;
+                    }
+                    
+                    displaySchedule(schedule, workoutType);
+                }, 800);
+            }
+            
+            function generateSingleMuscleSchedule(days, level) {
+                const muscleGroups = [
+                    { name: 'Chest', icon: 'fas fa-fire' },
+                    { name: 'Back', icon: 'fas fa-mountain' },
+                    { name: 'Legs', icon: 'fas fa-walking' },
+                    { name: 'Shoulders', icon: 'fas fa-arrows-alt-v' },
+                    { name: 'Arms', icon: 'fas fa-hand-paper' },
+                    { name: 'Core', icon: 'fas fa-om' }
+                ];
+                
+                // Adjust based on days available
+                let selectedMuscles = [];
+                if (days <= 3) {
+                    selectedMuscles = [muscleGroups[0], muscleGroups[1], muscleGroups[2]];
+                } else if (days <= 5) {
+                    selectedMuscles = [muscleGroups[0], muscleGroups[1], muscleGroups[2], muscleGroups[3], muscleGroups[4]].slice(0, days);
+                } else {
+                    selectedMuscles = muscleGroups.slice(0, days);
+                }
+                
+                // Generate exercises for each muscle group
+                return selectedMuscles.map(muscle => {
+                    return {
+                        day: muscle.name,
+                        icon: muscle.icon,
+                        type: 'Single Muscle',
+                        exercises: getExercisesForMuscle(muscle.name, level)
+                    };
+                });
+            }
+            
+            function generateDoubleMuscleSchedule(days, level) {
+                const combinations = [
+                    { name: 'Chest & Triceps', muscles: ['Chest', 'Triceps'], icon: 'fas fa-fire' },
+                    { name: 'Back & Biceps', muscles: ['Back', 'Biceps'], icon: 'fas fa-mountain' },
+                    { name: 'Legs & Core', muscles: ['Legs', 'Core'], icon: 'fas fa-walking' },
+                    { name: 'Shoulders & Arms', muscles: ['Shoulders', 'Biceps', 'Triceps'], icon: 'fas fa-arrows-alt-v' },
+                    { name: 'Upper Body', muscles: ['Chest', 'Back', 'Shoulders'], icon: 'fas fa-user' },
+                    { name: 'Lower Body', muscles: ['Legs', 'Core'], icon: 'fas fa-shoe-prints' }
+                ];
+                
+                // Select appropriate combinations based on days
+                let selectedCombos = [];
+                if (days <= 3) {
+                    selectedCombos = [
+                        combinations[0], 
+                        combinations[1], 
+                        combinations[2]
+                    ];
+                } else if (days <= 5) {
+                    selectedCombos = [
+                        combinations[0], 
+                        combinations[1], 
+                        combinations[2],
+                        combinations[3],
+                        combinations[4]
+                    ].slice(0, days);
+                } else {
+                    selectedCombos = combinations.slice(0, days);
+                }
+                
+                // Generate exercises for each combination
+                return selectedCombos.map(combo => {
+                    let exercises = [];
+                    combo.muscles.forEach(muscle => {
+                        exercises = exercises.concat(getExercisesForMuscle(muscle, level));
+                    });
+                    
+                    return {
+                        day: combo.name,
+                        icon: combo.icon,
+                        type: 'Double Muscle',
+                        exercises: exercises
+                    };
+                });
+            }
+            
+            function generatePPLSchedule(days, level) {
+                const baseDays = [
+                    { name: 'Push Day', muscles: ['Chest', 'Shoulders', 'Triceps'], icon: 'fas fa-arrow-up' },
+                    { name: 'Pull Day', muscles: ['Back', 'Biceps', 'Rear Delts'], icon: 'fas fa-arrow-down' },
+                    { name: 'Legs Day', muscles: ['Quadriceps', 'Hamstrings', 'Glutes', 'Calves'], icon: 'fas fa-walking' }
+                ];
+                
+                let schedule = [];
+                
+                if (days <= 3) {
+                    // Basic PPL
+                    schedule = baseDays.map(day => {
+                        let exercises = [];
+                        day.muscles.forEach(muscle => {
+                            exercises = exercises.concat(getExercisesForMuscle(muscle, level));
+                        });
+                        
+                        return {
+                            day: day.name,
+                            icon: day.icon,
+                            type: 'PPL',
+                            exercises: exercises
+                        };
+                    });
+                } else if (days <= 6) {
+                    // Repeat PPL with variations
+                    const cycles = Math.ceil(days / 3);
+                    for (let i = 0; i < cycles; i++) {
+                        baseDays.forEach((day, index) => {
+                            if (schedule.length < days) {
+                                let exercises = [];
+                                day.muscles.forEach(muscle => {
+                                    exercises = exercises.concat(getExercisesForMuscle(muscle, level));
+                                });
+                                
+                                // Add variation for second cycle
+                                const dayName = cycles > 1 && i > 0 ? 
+                                    `${day.name} (Variation ${i+1})` : day.name;
+                                
+                                schedule.push({
+                                    day: dayName,
+                                    icon: day.icon,
+                                    type: 'PPL',
+                                    exercises: exercises
+                                });
+                            }
+                        });
+                    }
+                }
+                
+                return schedule;
+            }
+            
+            function getExercisesForMuscle(muscle, level) {
+                // Enhanced exercise database with tooltips
+                const exerciseDB = {
+                    'Chest': {
+                        'beginner': [
+                            { name: 'Barbell Bench Press', sets: '3-4', reps: '8-12', tip: 'Lie on bench, grip slightly wider than shoulder width' },
+                            { name: 'Dumbbell Flyes', sets: '3', reps: '10-12', tip: 'Keep slight bend in elbows, control the movement' },
+                            { name: 'Push-ups', sets: '3', reps: 'To failure', tip: 'Keep body straight, lower until chest nearly touches floor' }
+                        ],
+                        'intermediate': [
+                            { name: 'Incline Dumbbell Press', sets: '4', reps: '8-10', tip: 'Set bench to 30-45 degree angle, control descent' },
+                            { name: 'Decline Bench Press', sets: '3', reps: '8-12', tip: 'Targets lower chest, use spotter for safety' },
+                            { name: 'Cable Crossovers', sets: '3', reps: '12-15', tip: 'Slight forward lean, squeeze at bottom of movement' }
+                        ],
+                        'advanced': [
+                            { name: 'Weighted Dips', sets: '4', reps: '6-10', tip: 'Lean forward to emphasize chest, add weight with belt' },
+                            { name: 'Guillotine Press', sets: '3', reps: '6-8', tip: 'Advanced variation, bar lowers to neck area' },
+                            { name: 'Pec Deck Machine', sets: '3', reps: '12-15', tip: 'Squeeze at peak contraction for maximum effect' }
+                        ]
+                    },
+                    'Back': {
+                        'beginner': [
+                            { name: 'Lat Pulldown', sets: '3-4', reps: '8-12', tip: 'Pull bar to chest, squeeze shoulder blades together' },
+                            { name: 'Seated Row', sets: '3', reps: '10-12', tip: 'Keep back straight, pull handles to waist' },
+                            { name: 'Back Extensions', sets: '3', reps: '12-15', tip: 'Focus on squeezing glutes at top of movement' }
+                        ],
+                        'intermediate': [
+                            { name: 'Pull-ups', sets: '4', reps: '6-10', tip: 'Start with assisted if needed, full range of motion' },
+                            { name: 'Bent Over Rows', sets: '4', reps: '8-10', tip: 'Maintain flat back, pull bar to lower abdomen' },
+                            { name: 'T-Bar Rows', sets: '3', reps: '8-12', tip: 'Great for middle back development, use chest support' }
+                        ],
+                        'advanced': [
+                            { name: 'Weighted Pull-ups', sets: '4', reps: '6-8', tip: 'Add weight with dip belt for progressive overload' },
+                            { name: 'Deadlifts', sets: '4', reps: '5-8', tip: 'Maintain neutral spine, drive through heels' },
+                            { name: 'Single Arm Dumbbell Row', sets: '3', reps: '10-12', tip: 'Brace on bench, focus on full stretch and contraction' }
+                        ]
+                    },
+                    'Legs': {
+                        'beginner': [
+                            { name: 'Bodyweight Squats', sets: '3-4', reps: '12-15', tip: 'Keep knees tracking over toes, squat to parallel' },
+                            { name: 'Leg Press', sets: '3', reps: '10-12', tip: 'Don\'t lock knees, control the weight' },
+                            { name: 'Leg Curls', sets: '3', reps: '10-12', tip: 'Squeeze hamstrings at top of movement' }
+                        ],
+                        'intermediate': [
+                            { name: 'Barbell Squats', sets: '4', reps: '8-10', tip: 'Maintain tight core, descend with control' },
+                            { name: 'Romanian Deadlifts', sets: '3', reps: '8-10', tip: 'Slight knee bend, feel stretch in hamstrings' },
+                            { name: 'Walking Lunges', sets: '3', reps: '10-12 each leg', tip: 'Take large steps, keep torso upright' }
+                        ],
+                        'advanced': [
+                            { name: 'Front Squats', sets: '4', reps: '6-8', tip: 'Barbell rests on shoulders, elbows high' },
+                            { name: 'Bulgarian Split Squats', sets: '3', reps: '8-10 each leg', tip: 'Rear foot elevated, focus on balance' },
+                            { name: 'Glute-Ham Raise', sets: '3', reps: '8-12', tip: 'Advanced hamstring exercise, use assistance if needed' }
+                        ]
+                    },
+                    'Shoulders': {
+                        'beginner': [
+                            { name: 'Dumbbell Shoulder Press', sets: '3-4', reps: '8-12', tip: 'Press overhead without arching back' },
+                            { name: 'Lateral Raises', sets: '3', reps: '10-12', tip: 'Slight bend in elbows, raise to shoulder height' },
+                            { name: 'Front Raises', sets: '3', reps: '10-12', tip: 'Control movement, avoid swinging' }
+                        ],
+                        'intermediate': [
+                            { name: 'Arnold Press', sets: '4', reps: '8-10', tip: 'Rotate palms during movement for full delt activation' },
+                            { name: 'Upright Rows', sets: '3', reps: '8-10', tip: 'Keep bar close to body, raise to chin level' },
+                            { name: 'Face Pulls', sets: '3', reps: '12-15', tip: 'Great for rear delts, pull towards forehead' }
+                        ],
+                        'advanced': [
+                            { name: 'Overhead Barbell Press', sets: '4', reps: '6-8', tip: 'Standing version engages core for stability' },
+                            { name: 'Behind-the-Neck Press', sets: '3', reps: '6-8', tip: 'Only if comfortable with shoulder mobility' },
+                            { name: 'Cable Lateral Raises', sets: '3', reps: '12-15', tip: 'Constant tension through full range of motion' }
+                        ]
+                    },
+                    'Arms': {
+                        'beginner': [
+                            { name: 'Dumbbell Bicep Curls', sets: '3', reps: '10-12', tip: 'Keep elbows stationary, full extension' },
+                            { name: 'Tricep Dips', sets: '3', reps: '8-10', tip: 'Use assisted machine if needed, keep elbows in' },
+                            { name: 'Hammer Curls', sets: '3', reps: '10-12', tip: 'Targets brachialis, palms face each other' }
+                        ],
+                        'intermediate': [
+                            { name: 'Barbell Curls', sets: '4', reps: '8-10', tip: 'Strict form, avoid swinging' },
+                            { name: 'Skull Crushers', sets: '4', reps: '8-10', tip: 'Lower bar to forehead, keep elbows stable' },
+                            { name: 'Preacher Curls', sets: '3', reps: '8-12', tip: 'Isolates biceps, prevent cheating' }
+                        ],
+                        'advanced': [
+                            { name: 'Concentration Curls', sets: '4', reps: '8-10', tip: 'Elbow against inner thigh, peak contraction' },
+                            { name: 'Close Grip Bench Press', sets: '4', reps: '6-8', tip: 'Hands shoulder-width apart, targets triceps' },
+                            { name: 'Reverse Curls', sets: '3', reps: '10-12', tip: 'Works brachioradialis, palms face down' }
+                        ]
+                    },
+                    'Core': {
+                        'beginner': [
+                            { name: 'Plank', sets: '3', reps: '30-60 sec', tip: 'Maintain straight line from head to heels' },
+                            { name: 'Russian Twists', sets: '3', reps: '12-15 each side', tip: 'Engage obliques, rotate fully' },
+                            { name: 'Leg Raises', sets: '3', reps: '10-12', tip: 'Keep lower back pressed into floor' }
+                        ],
+                        'intermediate': [
+                            { name: 'Hanging Leg Raises', sets: '4', reps: '10-12', tip: 'Raise legs to parallel, control descent' },
+                            { name: 'Cable Woodchoppers', sets: '3', reps: '12-15 each side', tip: 'Rotate through core, not just arms' },
+                            { name: 'Ab Wheel Rollouts', sets: '3', reps: '8-10', tip: 'Start from knees if needed, maintain tight core' }
+                        ],
+                        'advanced': [
+                            { name: 'Dragon Flags', sets: '3', reps: '6-8', tip: 'Advanced core exercise, requires control' },
+                            { name: 'Weighted Sit-ups', sets: '4', reps: '10-12', tip: 'Hold weight to chest for added resistance' },
+                            { name: 'L-Sit Hold', sets: '3', reps: '20-30 sec', tip: 'Develops core and hip flexor strength' }
+                        ]
+                    },
+                    'Triceps': {
+                        'intermediate': [
+                            { name: 'Tricep Rope Pushdown', sets: '4', reps: '10-12', tip: 'Spread rope at bottom of movement' },
+                            { name: 'Overhead Dumbbell Extension', sets: '3', reps: '10-12', tip: 'Keep elbows close to head' }
+                        ]
+                    },
+                    'Biceps': {
+                        'intermediate': [
+                            { name: 'Chin-ups', sets: '4', reps: '6-10', tip: 'Palms facing you, emphasizes biceps' }
+                        ]
+                    }
+                };
+                
+                return exerciseDB[muscle]?.[level] || [
+                    { name: 'Exercise not found', sets: '', reps: '', tip: '' }
+                ];
+            }
+            
+            function displaySchedule(schedule, workoutType) {
+                if (schedule.length === 0) {
+                    scheduleDiv.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <h3>No Schedule Available</h3>
+                            <p>Could not generate a schedule with the selected parameters</p>
+                        </div>
+                    `;
+                    scheduleDiv.style.display = 'block';
+                    return;
+                }
+                
+                // Map workout type to display name
+                const typeNames = {
+                    'single': 'Single Muscle',
+                    'double': 'Double Muscle',
+                    'ppl': 'Push-Pull-Legs'
+                };
+                
+                const typeName = typeNames[workoutType] || workoutType;
+                
+                let html = `
+                    <div class="schedule-header">
+                        <div class="schedule-title">Your Workout Plan</div>
+                        <div class="schedule-type">${typeName} Split</div>
+                    </div>
+                    <div class="days-container">
+                `;
+                
+                schedule.forEach((day, index) => {
+                    html += `
+                        <div class="day">
+                            <div class="day-header">
+                                <i class="${day.icon}"></i>
+                                ${day.day}
+                            </div>
+                            <div class="exercises">
+                    `;
+                    
+                    day.exercises.forEach((exercise, exIndex) => {
+                        // Add animation delay based on index
+                        const delay = index * 0.1 + exIndex * 0.05;
+                        
+                        html += `
+                            <div class="exercise" style="animation-delay: ${delay}s">
+                                <div class="exercise-name">
+                                    <i class="fas fa-dumbbell"></i>
+                                    <span class="tooltip">
+                                        ${exercise.name}
+                                        ${exercise.tip ? `<span class="tooltiptext">${exercise.tip}</span>` : ''}
+                                    </span>
+                                </div>
+                                <div class="exercise-details">
+                                    <div class="exercise-sets">
+                                        <i class="fas fa-redo"></i>
+                                        <span>${exercise.sets}</span> sets
+                                    </div>
+                                    <div class="exercise-reps">
+                                        <i class="fas fa-tasks"></i>
+                                        <span>${exercise.reps}</span> reps
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    html += `
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                html += `</div>`;
+                
+                scheduleDiv.innerHTML = html;
+                scheduleDiv.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

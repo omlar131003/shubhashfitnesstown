@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<!-- saved from url=(0023)http://127.0.0.1:5500/# -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shubhash Fitness Town</title>
+  <link rel="stylesheet" href="./Shubhash Fitness Town_files/style.css">
+  <link rel="icon" type="img/png" href="./Shubhash Fitness Town_files/shubhash fitness town logo.png">
+  <link rel="stylesheet" href="./Shubhash Fitness Town_files/all.min.css">
+  <link rel="stylesheet" href="./Shubhash Fitness Town_files/uicons-solid-rounded.css">
+  <link rel="stylesheet" href="./Shubhash Fitness Town_files/uicons-solid-rounded.css">
+  <link rel="stylesheet" href="./Shubhash Fitness Town_files/uicons-thin-rounded.css">
+  <link rel="stylesheet" href="./Shubhash Fitness Town_files/uicons-thin-chubby.css">
+  <link rel="stylesheet" href="./Shubhash Fitness Town_files/uicons-solid-straight.css">
+  <link href="./Shubhash Fitness Town_files/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <div class="container-fluid" <div="">
+      <a class="navbar-brand" href="http://127.0.0.1:5500/#">
+        <img src="./Shubhash Fitness Town_files/shubhash fitness town logo.png" alt="Avatar Logo" style="width:40px;" class="rounded-pill">
+      </a>
+    </div>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="http://127.0.0.1:5500/rejestriationForm.html">Register</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="http://127.0.0.1:5500/plan.html">Membrship</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="http://127.0.0.1:5500/#">login</a>
+        </li>
+      </ul>
+    </div>
+    
+  </nav>
+    
+    <!-- Bootstrap CSS -->
+   
+    <style>
+        /* Custom Styles */
+        .carousel-item {
+            height: 90vh;
+            min-height: 500px;
+        }
+        
+        .carousel-item img {
+            object-fit: cover;
+            height: 100%;
+            width: 100%;
+        }
+        
+        .carousel-caption {
+            bottom: 180px;
+            padding-left: 100px;
+            padding-right: 100px;
+        }
+        
+        .carousel-caption h5 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 2rem;
+            color: #ff5500;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .carousel-caption p {
+            font-size: 1.5rem;
+            margin-bottom: 2.5rem;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+        }
+        
+        .btn-gym {
+            background-color: #ff5500;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            border: 2px solid #ff5500;
+            transition: all 0.3s;
+        }
+        
+        .btn-gym:hover {
+            background-color: transparent;
+            color: #ff5500;
+            border-color: #ff5500;
+        }
+        
+        .carousel-indicators button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin: 0 8px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border: none;
+        }
+        
+        .carousel-indicators button.active {
+            background-color: #ff5500;
+        }
+        
+        /* Gradient overlay */
+        .carousel-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);
+            z-index: 1;
+        }
+        
+        .carousel-caption {
+            z-index: 2;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .carousel-caption {
+                bottom: 120px;
+                padding-left: 50px;
+                padding-right: 50px;
+            }
+            
+            .carousel-caption h5 {
+                font-size: 2.5rem;
+            }
+            
+            .carousel-caption p {
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .carousel-item {
+                height: 70vh;
+            }
+            
+            .carousel-caption {
+                bottom: 80px;
+                padding-left: 30px;
+                padding-right: 30px;
+            }
+            
+            .carousel-caption h5 {
+                font-size: 2rem;
+                margin-bottom: 1rem;
+            }
+            
+            .carousel-caption p {
+                font-size: 1rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .btn-gym {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .carousel-item {
+                height: 60vh;
+            }
+            
+            .carousel-caption {
+                bottom: 50px;
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+            
+            .carousel-caption h5 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+
+
+    <!-- Carousel -->
+    <div id="gymCarousel" class="carousel slide pointer-event" data-bs-ride="carousel">
+        <!-- Indicators -->
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#gymCarousel" data-bs-slide-to="0" class=""></button>
+            <button type="button" data-bs-target="#gymCarousel" data-bs-slide-to="1" class="active" aria-current="true"></button>
+            <button type="button" data-bs-target="#gymCarousel" data-bs-slide-to="2" class=""></button>
+        </div>
+        
+        <!-- Slides -->
+        <div class="carousel-inner">
+           
+            <div class="carousel-item">
+                <img src="./Shubhash Fitness Town_files/img.avif">
+                <div class="carousel-caption text-start">
+                    <h5>Transform Your Body</h5>
+                    <p>Join our state-of-the-art fitness center with the latest equipment</p>
+                    <a href="http://127.0.0.1:5500/plan.html" class="btn btn-gym">Join Now</a>
+                </div>
+            </div>
+            
+          
+            <div class="carousel-item active">
+                <img src="./Shubhash Fitness Town_files/img.2.avif" class="d-block w-100" alt="Personal Training">
+                <div class="carousel-caption text-center">
+                    <h5>Personal Training</h5>
+                    <p>Get customized workout plans from  trainers</p>
+                    <a href="http://127.0.0.1:5500/plan.html" class="btn btn-gym">Join</a>
+                </div>
+            </div>
+            
+            
+            <div class="carousel-item">
+                <img src="./Shubhash Fitness Town_files/img.3.avif" class="d-block w-100" alt="Group Classes">
+                <div class="carousel-caption text-end">
+                    <h5> Classes</h5>
+                    <p>Join our energizing  fitness classes for all levels</p>
+                    <a href="http://127.0.0.1:5500/plan.html" class="btn btn-gym">Join</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        <button class="carousel-control-prev" type="button" data-bs-target="#gymCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#gymCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    
+    
+
+      <div class="mid">
+        <div>
+          <p style="color: chocolate; font size: 25px;">
+            Why chose us?</p>
+          <p class="midp2">PUSH YOUR LIMITS FORWARD</p>
+          <div>
+            <div class="midsec">
+              <div>
+                <div class="midse1">
+                  <div class="icon"> <i class="fi fi-ss-stationary-bike"></i>
+                  </div>
+
+                  <p style="font-size: 20px;">Morden Equipment</p>
+                  <p>Lorem ipsum dolor sit amet consecte</p>
+                </div>
+
+                <div>
+                  <div class="icon"><i class="fi fi-tc-glass-citrus"></i></div>
+                  <p style="font-size: 20px;">Healthy nutriation plan</p>
+                  <p>Lorem ipsum dolor sit amet consecte</p>
+                </div>
+              </div>
+
+
+              <div>
+                <div class="icon"><i class="fi fi-tr-dumbbell-ray"></i></div>
+                <p style="font-size: 20px;">Proffesponal training plan</p>
+                <p>Lorem ipsum dolor sit amet consecte</p>
+              </div>
+
+              <div>
+                <div class="icon"><i class="fi fi-tr-pulse"></i></div>
+                <p style="font-size: 20px;">Unique to your needs</p>
+                <p>Lorem ipsum dolor sit amet consecte</p>
+              </div>
+
+
+            </div>
+          </div>
+          <div>
+            <p style="text-align: center ; color: chocolate; font-size: 30px; padding-top: 20px; font-family: sans-serif;">
+              WHAT WE CAN OFFER</p>
+          </div>
+          <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col">
+              <div class="card h-100">
+                <img src="./Shubhash Fitness Town_files/bodybuilding-pictures-cifitscd3a7dz4bt.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">Bodybuilding</h5>
+                  <p class="card-text">"Bodybuilding is the art of sculpting your physique through relentless dedication, discipline, and hard work. It’s not just about lifting weights—it’s about pushing limits, embracing the grind, and transforming both body and mind. Every drop of sweat, every rep, and every meal fuels the journey to strength and symmetry." </p>
+                </div>
+
+              </div>
+            </div>
+            <div class="col">
+              <div class="card h-100">
+                <img src="./Shubhash Fitness Town_files/OIP.webp" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">Mussles Gain</h5>
+                  <p class="card-text">"Muscle gain is built on consistency—train hard, fuel right, and recover smarter. Lift with intensity, eat for growth, and trust the process. Every rep and every gram of protein pushes you closer to a stronger, bigger version of yourself. Stay patient, stay hungry, and the gains will come."
+                  </p>
+                </div>
+
+              </div>
+            </div>
+            <div class="col">
+              <div class="card h-100">
+                <img src="./Shubhash Fitness Town_files/weight-loss-7-1024x576.webp" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">Weight Loss</h5>
+                  <p class="card-text">"Fat loss is a battle of discipline—burn more than you eat, stay consistent, and trust the process. Every workout, every healthy meal, and every drop of sweat brings you closer to your goal. It’s not about speed, but sustainability. Stay focused, stay patient, and the results will follow."</p>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <br>
+          <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-about">
+                <div class="footer-logo">
+                    <img src="./Shubhash Fitness Town_files/shubhash fitness town logo.png" alt="Gym Logo">
+                </div>
+                <p>Transform your body, mind, and life at our state-of-the-art fitness center. We offer personalized training programs, top-notch equipment, and a supportive community to help you reach your fitness goals.</p>
+                <div class="social-icons">
+                    <a href="http://127.0.0.1:5500/#https://www.facebook.com/61566447525470"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/subhashmaraskolhe/"><i class="fab fa-instagram"></i></a>
+                    <a href="http://127.0.0.1:5500/#"><i class="fab fa-twitter"></i></a>
+                    <a href="http://127.0.0.1:5500/#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="http://127.0.0.1:5500/#">Home</a></li>
+                    <li><a href="http://127.0.0.1:5500/#">About Us</a></li>
+                    <li><a href="http://127.0.0.1:5500/#">Classes</a></li>
+                    <li><a href="http://127.0.0.1:5500/#">Trainers</a></li>
+                    <li><a href="http://127.0.0.1:5500/#">Membership</a></li>
+                    <li><a href="http://127.0.0.1:5500/#">Gallery</a></li>
+                    <li><a href="http://127.0.0.1:5500/#">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-contact">
+                <h3>Contact Us</h3>
+                <div class="contact-info">
+                    <p><i class="fas fa-map-marker-alt"></i> 6368+C4P, W C L Colony, Godhni, Nagpur,Maharashtra 441501</p>
+                    <p><i class="fas fa-phone-alt"></i> 093256 25629</p>
+                    <p><i class="fas fa-envelope"></i> info@gymwebsite.com</p>
+                </div>
+            </div>
+            
+            <div class="footer-hours">
+                <h3>Opening Hours</h3>
+                <div class="opening-hours">
+                    <div><span>Morning</span> <span>5:30 - 12:00</span></div>
+                    <div><span>Afternoon</span> <span>3:30 - 10:30</span></div>
+                    <div><span>Sunday</span> <span>Closed</span></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>© 2023 Gym Name. All Rights Reserved. | Designed by omkar</p>
+        </div>
+    </footer>
+          <script src="./Shubhash Fitness Town_files/bootstrap.bundle.min.js.download" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+            
+
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+
+
+</div></div></body></html>
