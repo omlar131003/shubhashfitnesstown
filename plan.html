@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="plan.css">
+    <title>Subhash Fitness Town - Membership Plans</title>
+   
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Subhash Fitness Town</h1>
+            <h2>Ladies & Gents Gym</h2>
+        </header>
+        
+        <div class="membership-plans">
+            <div class="plan-card">
+                <div class="plan-header">
+                    <h3>Gym Membership</h3>
+                    <p>Basic workout plan</p>
+                </div>
+                <div class="plan-price">₹200<span> Admission Fee</span></div>
+                <div class="plan-features">
+                    <ul>
+                        <li><span class="feature-name">Monthly Fee</span> <span class="feature-value">₹700</span></li>
+                        <li><span class="feature-name">Quarterly Fee</span> <span class="feature-value">₹1800</span></li>
+                        <li><span class="feature-name">Half Yearly Fee</span> <span class="feature-value">₹3000</span></li>
+                        <li><span class="feature-name">Yearly Fee</span> <span class="feature-value">₹5000</span></li>
+                    </ul>
+                </div>
+                <div class="plan-cta">
+                    <button class="btn">Join Now</button>
+                </div>
+            </div>
+            
+            <div class="plan-card">
+                <div class="plan-header" style="background: var(--secondary);">
+                    <h3>Gym + Cardio</h3>
+                    <p>Complete fitness solution</p>
+                </div>
+                <div class="plan-price">₹200<span> Admission Fee</span></div>
+                <div class="plan-features">
+                    <ul>
+                        <li><span class="feature-name">Monthly Fee</span> <span class="feature-value">₹1200</span></li>
+                        <li><span class="feature-name">Quarterly Fee</span> <span class="feature-value">₹3000</span></li>
+                        <li><span class="feature-name">Half Yearly Fee</span> <span class="feature-value">₹5000</span></li>
+                        <li><span class="feature-name">Yearly Fee</span> <span class="feature-value">₹8000</span></li>
+                    </ul>
+                </div>
+                <div class="plan-cta">
+                    <button class="btn">Join Now</button>
+                </div>
+            </div>
+            
+            <div class="plan-card">
+                <div class="plan-header" style="background: var(--dark);">
+                    <h3>Special Offer</h3>
+                    <p>Limited time benefits</p>
+                </div>
+                <div class="plan-price">₹0<span> Admission Fee</span></div>
+                <div class="plan-features">
+                    <ul>
+                        <li><span class="feature-name">Quarterly Fee</span> <span class="feature-value">No Admission Fees</span></li>
+                        <li><span class="feature-name">Half Yearly Fee</span> <span class="feature-value">No Admission Fees</span></li>
+                        <li><span class="feature-name">Yearly Fee</span> <span class="feature-value">No Admission Fees</span></li>
+                        <li><span class="feature-name">Special Discounts</span> <span class="feature-value">Available</span></li>
+                    </ul>
+                </div>
+                <div class="plan-cta">
+                    <button class="btn">Get Offer</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="additional-services">
+            <h2>Additional Services</h2>
+            <div class="services-grid">
+                <div class="service-item">
+                    <h3>Personal Training</h3>
+                    <p>(Per Month)</p>
+                    <p>3000</p>
+                </div>
+                <div class="service-item">
+                    <h3>Diet Chart</h3>
+                    <p>(Per Person)</p>
+                    <p>2000</p>
+                </div>
+                <div class="service-item">
+                    <h3>Steam + Body Massage</h3>
+                    <p>200</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gym-info">
+            <h2>Gym Information</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <h3>Gym Timing</h3>
+                    <p><strong>Monday to Saturday</strong></p>
+                    <p>Morning: 05:30 AM to 12:00 PM</p>
+                    <p>Evening: 04:00 PM to 10:00 PM</p>
+                    <p><strong>Sunday Closed</strong></p>
+                </div>
+                <div class="info-item">
+                    <h3>Contact</h3>
+                    <p><strong>Subhash Sir</strong></p>
+                    <p>Mobile: 9325625629</p>
+                </div>
+            </div>
+            <div class="note">
+                <p><strong>Note:</strong> Fee once deposited is non-refundable and non-adjustable.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        
+        document.querySelectorAll('.btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const planTitle = this.closest('.plan-card').querySelector('.plan-header h3').textContent;
+                alert(`Thank you for your interest in our ${planTitle} plan! Our team will contact you shortly.`);
+            });
+        });
+    </script>
+</body>
+</html>
